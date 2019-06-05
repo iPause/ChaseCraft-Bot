@@ -1,0 +1,16 @@
+{
+  "token": "NTg1NjUxNDE1MjA1MDE5NjUy.XPckrw._aUIU232YnQVgDvWUarO2YQVG0U",
+  "prefix": "!",
+  "botname": "ChaseCraft",
+  "activity": "PLAYING",
+  "embedcolor": "#f5b13f",
+  "ip": "play.ChaseCraft.gg",
+  "status": "ChaseCraft | !commands",
+  "joinrole": "Member",
+  "welcomech": "welcome",
+  "deletech": "logs",
+  "modlog": "logs",
+  "suggestch": "suggestions",
+  "bugch": "bug-reports",
+  "noperms": "You do not have access to that command."
+}
