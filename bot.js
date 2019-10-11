@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const config = require("./config.json");
 const bot = new Discord.Client();;
 const ms = require("ms");
-//let profanities = ["fuck", "nigger", "https://", "porn", "cuck", "cunt", "nigga", "n1gger","f4ck", "fack", "http://"];
+//let profanities = ["fuck", "nigger", "https://", "porn", "cuck", "cunt", "nigga", "n1gger","f4ck", "fack", "http://, shit, damn, bitch, titty, fucc, niqqa"];
 
 //COMMAND HANDLER
 const fs = require("fs");
@@ -40,6 +40,16 @@ bot.on("message", async message => {
   if(commandfile) commandfile.run(bot,message,args);
 });
 
+//ONLINE COUNT CHANNEL
+// bot.on("message", async message => {
+// let mcIP = (config.ip);
+// let url = 'http://mcapi.us/server/status?ip=' + mcIP;
+//
+//   let {body} = await superagent
+//     .get(url)
+//
+// message.guild.channels.get("VOICE_CHANNEL_ID").setName(`👥 In-Game: ${body.players.now}/${body.players.max}`);
+// });
 
 //EVENTS
 bot.on("ready", async () => {
@@ -47,14 +57,13 @@ bot.on("ready", async () => {
   bot.user.setActivity(config.status,{type: config.activity});
 });
 
-
 //MEMBER ADD | ADDING ROLE
 bot.on("guildMemberAdd", async member => {
   console.log(`${member.user} joined the server.`);
   member.addRole(member.guild.roles.find(x => x.name === config.joinrole));
 
-  let mCount = member.guild.members.filter(member => !member.user.bot).size;
-  member.guild.channels.get("585650785652703233").setName(`🆕 Total Members: ${mCount}`);
+  // let mCount = member.guild.members.filter(member => !member.user.bot).size;
+  // member.guild.channels.get("VOICE_CHANNEL_ID").setName(`🆕 Total Members: ${mCount}`);
 
   let WChannel = member.guild.channels.find(x => x.name === config.welcomech);
   WChannel.send(`Welcome, ${member.user}, to the **ChaseCraft Discord**!\n\n▪**STORE** <https://store.chasecraft.gg/>\n▪**WEBSITE** <https://www.chasecraft.gg>\n▪**SERVER** play.chasecraft.gg\n\n*Read the rules @ https://chasecraft.gg/index.php?forums/rules/*`);
@@ -62,10 +71,10 @@ bot.on("guildMemberAdd", async member => {
 
 
 //MEMBER LEAVE
-bot.on("guildMemberRemove", async member => {
-  let mCount = member.guild.members.filter(member => !member.user.bot).size;
-  member.guild.channels.get("585650785652703233").setName(`🆕 Total Members: ${mCount}`);
-});
+// bot.on("guildMemberRemove", async member => {
+//   let mCount = member.guild.members.filter(member => !member.user.bot).size;
+//   member.guild.channels.get("VOICE_CHANNEL_ID").setName(`🆕 Total Members: ${mCount}`);
+// });
 
 
 //DELETED MESSAGE LOG
@@ -86,37 +95,37 @@ bot.on("messageDelete", async message => {
 
 //SUGGESTION AND BUG-REPORT CHANNELS
 bot.on("message", async message => {
-  let schannel = message.guild.channels.find(x => x.name === "suggestions");
+  let schannel = message.guild.channels.find(channel => channel.name === "suggestions");
   if(message.member.hasPermission("ADMINISTRATOR")) return
   else if(!schannel) return console.log(`There is no suggestions channel!`);;
   if (message.channel != schannel || message.author.bot || message.content.startsWith("!suggest")) return;
   else message.delete().catch(O_o=> {});
 });
 bot.on("message", async message => {
-  let bchannel = message.guild.channels.find(x => x.name === "bug-reports");
+  let bchannel = message.guild.channels.find(channel => channel.name === "bug-reports");
   if(message.member.hasPermission("ADMINISTRATOR")) return
   else if(!bchannel) return console.log(`There is no bug-reports channel!`);;
   if (message.channel != bchannel || message.author.bot || message.content.startsWith("!bug")) return;
   else message.delete().catch(O_o=> {});
 });
 
-let profanities = ["https://", "http://"];
-//CHAT FILTER
-bot.on('message', async message => {
-    let msg = message.content.toLowerCase();
-    let allowedRole = message.guild.roles.find(x => x.name === "Staff");
-    let staffchat = message.guild.channels.find(x => x.name === "staff-chat");
-    let support = message.guild.channels.find(x => x.name === "support");
-    if(message.channel.id === staffchat.id || message.author.bot || message.member.roles.has(allowedRole.id)) return;
-    if(message.member.hasPermission("ADMINISTRATOR")) return
-    if(message.channel.id === staffchat.id || message.channel.id === support.id) return;
-    for (x = 0; x < profanities.length; x++) {
-        if (msg.includes(profanities[x])){
-            message.delete()
-            return;
-        }
-    }
-});
+// let profanities = ["https://", "http://"];
+// //CHAT FILTER
+// bot.on('message', async message => {
+//     let msg = message.content.toLowerCase();
+//     let allowedRole = message.guild.roles.find(x => x.name === "Staff");
+//     let staffchat = message.guild.channels.find(x => x.name === "staff-chat");
+//     let support = message.guild.channels.find(x => x.name === "support");
+//     if(message.channel.id === staffchat.id || message.author.bot || message.member.roles.has(allowedRole.id)) return;
+//     if(message.member.hasPermission("ADMINISTRATOR")) return
+//     if(message.channel.id === staffchat.id || message.channel.id === support.id) return;
+//     for (x = 0; x < profanities.length; x++) {
+//         if (msg.includes(profanities[x])){
+//             message.delete()
+//             return;
+//         }
+//     }
+// });
 
 
 //LOGIN
